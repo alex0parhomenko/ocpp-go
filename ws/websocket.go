@@ -175,7 +175,7 @@ type CheckClientHandler func(id string, r *http.Request) bool
 //
 // To support client basic authentication, use:
 //
-//	server.SetBasicAuthHandler(func (user, pass) bool {
+//	server.SetBasicAuthHandler(func (orgId, user, pass) bool {
 //		ok := authenticate(user, pass) // ... check for user and pass correctness
 //		return ok
 //	})
@@ -240,7 +240,7 @@ type WsServer interface {
 	// SetBasicAuthHandler enables HTTP Basic Authentication and requires clients to pass credentials.
 	// The handler function is called whenever a new client attempts to connect, to check for credentials correctness.
 	// The handler must return true if the credentials were correct, false otherwise.
-	SetBasicAuthHandler(handler func(username string, password string) bool)
+	SetBasicAuthHandler(handler func(orgId, username string, password string) bool)
 	// SetCheckOriginHandler sets a handler for incoming websocket connections, allowing to perform
 	// custom cross-origin checks.
 	//
@@ -269,7 +269,7 @@ type Server struct {
 	checkClientHandler  func(id string, r *http.Request) bool
 	newClientHandler    func(ws Channel)
 	disconnectedHandler func(ws Channel)
-	basicAuthHandler    func(username string, password string) bool
+	basicAuthHandler    func(orgId string, username string, password string) bool
 	tlsCertificatePath  string
 	tlsCertificateKey   string
 	timeoutConfig       ServerTimeoutConfig
@@ -349,7 +349,7 @@ func (server *Server) AddSupportedSubprotocol(subProto string) {
 	server.upgrader.Subprotocols = append(server.upgrader.Subprotocols, subProto)
 }
 
-func (server *Server) SetBasicAuthHandler(handler func(username string, password string) bool) {
+func (server *Server) SetBasicAuthHandler(handler func(orgId string, username string, password string) bool) {
 	server.basicAuthHandler = handler
 }
 
@@ -474,7 +474,10 @@ func (server *Server) Write(webSocketId string, data []byte) error {
 func (server *Server) wsHandler(w http.ResponseWriter, r *http.Request) {
 	responseHeader := http.Header{}
 	url := r.URL
-	id := path.Base(url.Path)
+	orgId, id := path.Split(url.Path)
+	orgId = path.Base(orgId)
+	id = fmt.Sprintf("%s/%s", orgId, id)
+
 	log.Debugf("handling new connection for %s from %s", id, r.RemoteAddr)
 	// Negotiate sub-protocol
 	clientSubprotocols := websocket.Subprotocols(r)
@@ -501,7 +504,7 @@ out:
 	if server.basicAuthHandler != nil {
 		username, password, ok := r.BasicAuth()
 		if ok {
-			ok = server.basicAuthHandler(username, password)
+			ok = server.basicAuthHandler(orgId, username, password)
 		}
 		if !ok {
 			server.error(fmt.Errorf("basic auth failed: credentials invalid"))

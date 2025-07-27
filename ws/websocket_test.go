@@ -530,7 +530,7 @@ func TestValidBasicAuth(t *testing.T) {
 	// Create TLS server with self-signed certificate
 	wsServer := NewTLSServer(certFilename, keyFilename, nil)
 	// Add basic auth handler
-	wsServer.SetBasicAuthHandler(func(username string, password string) bool {
+	wsServer.SetBasicAuthHandler(func(orgId, username string, password string) bool {
 		require.Equal(t, authUsername, username)
 		require.Equal(t, authPassword, password)
 		return true
@@ -581,7 +581,7 @@ func TestInvalidBasicAuth(t *testing.T) {
 	// Create TLS server with self-signed certificate
 	wsServer := NewTLSServer(certFilename, keyFilename, nil)
 	// Add basic auth handler
-	wsServer.SetBasicAuthHandler(func(username string, password string) bool {
+	wsServer.SetBasicAuthHandler(func(orgId, username string, password string) bool {
 		validCredentials := authUsername == username && authPassword == password
 		require.False(t, validCredentials)
 		return validCredentials

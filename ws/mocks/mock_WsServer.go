@@ -202,7 +202,7 @@ func (_c *MockWsServer_Errors_Call) RunAndReturn(run func() <-chan error) *MockW
 }
 
 // SetBasicAuthHandler provides a mock function with given fields: handler
-func (_m *MockWsServer) SetBasicAuthHandler(handler func(string, string) bool) {
+func (_m *MockWsServer) SetBasicAuthHandler(handler func(string, string, string) bool) {
 	_m.Called(handler)
 }
 
