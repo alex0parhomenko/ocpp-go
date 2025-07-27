@@ -1,6 +1,7 @@
 package core
 
 import (
+	"encoding/json"
 	"reflect"
 )
 
@@ -10,9 +11,9 @@ const GetConfigurationFeatureName = "GetConfiguration"
 
 // Contains information about a specific configuration key. It is returned in GetConfigurationConfirmation
 type ConfigurationKey struct {
-	Key      string  `json:"key" validate:"required,max=50"`
-	Readonly bool    `json:"readonly"`
-	Value    *string `json:"value,omitempty" validate:"omitempty,max=500"`
+	Key      string           `json:"key" validate:"required,max=50"`
+	Readonly bool             `json:"readonly"`
+	Value    *json.RawMessage `json:"value,omitempty" validate:"omitempty,max=500"`
 }
 
 // The field definition of the GetConfiguration request payload sent by the Central System to the Charge Point.
