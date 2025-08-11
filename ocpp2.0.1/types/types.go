@@ -279,7 +279,7 @@ func isValidGroupIdToken(sl validator.StructLevel) {
 
 type IdTokenInfo struct {
 	Status              AuthorizationStatus `json:"status" validate:"required,authorizationStatus201"`
-	CacheExpiryDateTime *DateTime           `json:"cacheExpiryDateTime,omitempty" validate:"omitempty"`
+	CacheExpiryDateTime *DateTime           `json:"cacheExpiryDateTime,omitempty" validate:"omitempty" swaggertype:"string" format:"date-time"`
 	ChargingPriority    int                 `json:"chargingPriority,omitempty" validate:"min=-9,max=9"`
 	Language1           string              `json:"language1,omitempty" validate:"max=8"`
 	Language2           string              `json:"language2,omitempty" validate:"max=8"`
@@ -508,7 +508,7 @@ func NewChargingSchedulePeriod(startPeriod int, limit float64) ChargingScheduleP
 
 type ChargingSchedule struct {
 	ID                     int                      `json:"id" validate:"gte=0"` // Identifies the ChargingSchedule.
-	StartSchedule          *DateTime                `json:"startSchedule,omitempty" validate:"omitempty"`
+	StartSchedule          *DateTime                `json:"startSchedule,omitempty" validate:"omitempty" swaggertype:"string" format:"date-time"`
 	Duration               *int                     `json:"duration,omitempty" validate:"omitempty,gte=0"`
 	ChargingRateUnit       ChargingRateUnitType     `json:"chargingRateUnit" validate:"required,chargingRateUnit201"`
 	MinChargingRate        *float64                 `json:"minChargingRate,omitempty" validate:"omitempty,gte=0"`
@@ -526,8 +526,8 @@ type ChargingProfile struct {
 	ChargingProfilePurpose ChargingProfilePurposeType `json:"chargingProfilePurpose" validate:"required,chargingProfilePurpose201"`
 	ChargingProfileKind    ChargingProfileKindType    `json:"chargingProfileKind" validate:"required,chargingProfileKind201"`
 	RecurrencyKind         RecurrencyKindType         `json:"recurrencyKind,omitempty" validate:"omitempty,recurrencyKind201"`
-	ValidFrom              *DateTime                  `json:"validFrom,omitempty"`
-	ValidTo                *DateTime                  `json:"validTo,omitempty"`
+	ValidFrom              *DateTime                  `json:"validFrom,omitempty" swaggertype:"string" format:"date-time"`
+	ValidTo                *DateTime                  `json:"validTo,omitempty" swaggertype:"string" format:"date-time"`
 	TransactionID          string                     `json:"transactionId,omitempty" validate:"omitempty,max=36"`
 	ChargingSchedule       []ChargingSchedule         `json:"chargingSchedule" validate:"required,min=1,max=3,dive"`
 }
@@ -721,7 +721,7 @@ type SampledValue struct {
 }
 
 type MeterValue struct {
-	Timestamp    DateTime       `json:"timestamp" validate:"required"`
+	Timestamp    DateTime       `json:"timestamp" validate:"required" swaggertype:"string" format:"date-time"`
 	SampledValue []SampledValue `json:"sampledValue" validate:"required,min=1,dive"`
 }
 
