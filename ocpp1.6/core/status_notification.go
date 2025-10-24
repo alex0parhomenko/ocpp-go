@@ -1,9 +1,10 @@
 package core
 
 import (
+	"reflect"
+
 	"github.com/lorenzodonini/ocpp-go/ocpp1.6/types"
 	"gopkg.in/go-playground/validator.v9"
-	"reflect"
 )
 
 // -------------------- Status Notification (CP -> CS) --------------------
@@ -70,7 +71,7 @@ func isValidChargePointErrorCode(fl validator.FieldLevel) bool {
 type StatusNotificationRequest struct {
 	ConnectorId     int                  `json:"connectorId" validate:"gte=0"`
 	ErrorCode       ChargePointErrorCode `json:"errorCode" validate:"required,chargePointErrorCode"`
-	Info            string               `json:"info,omitempty" validate:"max=50"`
+	Info            string               `json:"info,omitempty" validate:"max=100"`
 	Status          ChargePointStatus    `json:"status" validate:"required,chargePointStatus"`
 	Timestamp       *types.DateTime      `json:"timestamp,omitempty" validate:"omitempty"`
 	VendorId        string               `json:"vendorId,omitempty" validate:"max=255"`
