@@ -48,8 +48,8 @@ func isValidLogStatus(fl validator.FieldLevel) bool {
 // LogParameters specifies the requested log and the location to which the log should be sent. It is used in GetLogRequest.
 type LogParameters struct {
 	RemoteLocation  string          `json:"remoteLocation" validate:"required,max=512,url"`
-	OldestTimestamp *types.DateTime `json:"oldestTimestamp,omitempty" validate:"omitempty"`
-	LatestTimestamp *types.DateTime `json:"latestTimestamp,omitempty" validate:"omitempty"`
+	OldestTimestamp *types.DateTime `json:"oldestTimestamp,omitempty" validate:"omitempty" swaggertype:"string" format:"date-time"`
+	LatestTimestamp *types.DateTime `json:"latestTimestamp,omitempty" validate:"omitempty" swaggertype:"string" format:"date-time"`
 }
 
 // The field definition of the GetLog request payload sent by the CSMS to the Charging Station.

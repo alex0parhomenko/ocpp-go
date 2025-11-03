@@ -15,8 +15,8 @@ type GetDiagnosticsRequest struct {
 	Location      string          `json:"location" validate:"required,uri"`
 	Retries       *int            `json:"retries,omitempty" validate:"omitempty,gte=0"`
 	RetryInterval *int            `json:"retryInterval,omitempty" validate:"omitempty,gte=0"`
-	StartTime     *types.DateTime `json:"startTime,omitempty"`
-	StopTime      *types.DateTime `json:"stopTime,omitempty"`
+	StartTime     *types.DateTime `json:"startTime,omitempty" swaggertype:"string" format:"date-time"`
+	StopTime      *types.DateTime `json:"stopTime,omitempty" swaggertype:"string" format:"date-time"`
 }
 
 // This field definition of the GetDiagnostics confirmation payload, sent by the Charge Point to the Central System in response to a GetDiagnosticsRequest.

@@ -385,9 +385,9 @@ out:
 	}
 	// Handle client authentication
 	if s.basicAuthHandler != nil {
-		username, password, ok := r.BasicAuth()
+		_, password, ok := r.BasicAuth()
 		if ok {
-			ok = s.basicAuthHandler(username, password)
+			ok = s.basicAuthHandler(id, password)
 		}
 		if !ok {
 			s.error(fmt.Errorf("basic auth failed: credentials invalid"))

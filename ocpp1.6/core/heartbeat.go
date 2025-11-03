@@ -17,7 +17,7 @@ type HeartbeatRequest struct {
 // This field definition of the Heartbeat confirmation payload, sent by the Central System to the Charge Point in response to a HeartbeatRequest.
 // In case the request was invalid, or couldn't be processed, an error will be sent instead.
 type HeartbeatConfirmation struct {
-	CurrentTime *types.DateTime `json:"currentTime" validate:"required"`
+	CurrentTime *types.DateTime `json:"currentTime" validate:"required" swaggertype:"string" format:"date-time"`
 }
 
 // To let the Central System know that a Charge Point is still connected, a Charge Point sends a heartbeat after a configurable time interval.

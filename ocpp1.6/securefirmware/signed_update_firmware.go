@@ -58,11 +58,11 @@ type SignedUpdateFirmwareRequest struct {
 
 // Represents a copy of the firmware that can be loaded/updated on the Charging Station.
 type Firmware struct {
-	Location           string          `json:"location" validate:"required,max=512,uri"`         // URI defining the origin of the firmware.
-	RetrieveDateTime   *types.DateTime `json:"retrieveDateTime" validate:"required"`             // Date and time at which the firmware shall be retrieved.
-	InstallDateTime    *types.DateTime `json:"installDateTime,omitempty" validate:"omitempty"`   // Date and time at which the firmware shall be installed.
-	SigningCertificate string          `json:"signingCertificate,omitempty" validate:"max=5500"` // Certificate with which the firmware was signed. PEM encoded X.509 certificate.
-	Signature          string          `json:"signature,omitempty" validate:"max=800"`           // Base64 encoded firmware signature.
+	Location           string          `json:"location" validate:"required,max=512,uri"`                                               // URI defining the origin of the firmware.
+	RetrieveDateTime   *types.DateTime `json:"retrieveDateTime" validate:"required" swaggertype:"string" format:"date-time"`           // Date and time at which the firmware shall be retrieved.
+	InstallDateTime    *types.DateTime `json:"installDateTime,omitempty" validate:"omitempty" swaggertype:"string" format:"date-time"` // Date and time at which the firmware shall be installed.
+	SigningCertificate string          `json:"signingCertificate,omitempty" validate:"max=5500"`                                       // Certificate with which the firmware was signed. PEM encoded X.509 certificate.
+	Signature          string          `json:"signature,omitempty" validate:"max=800"`                                                 // Base64 encoded firmware signature.
 }
 
 // This field definition of the LogStatusNotification response payload, sent by the CSMS to the Charging Station in response to a SignedUpdateFirmwareRequest.

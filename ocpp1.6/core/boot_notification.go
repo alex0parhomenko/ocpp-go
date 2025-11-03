@@ -1,9 +1,10 @@
 package core
 
 import (
+	"reflect"
+
 	"github.com/lorenzodonini/ocpp-go/ocpp1.6/types"
 	"gopkg.in/go-playground/validator.v9"
-	"reflect"
 )
 
 // -------------------- Boot Notification (CP -> CS) --------------------
@@ -32,7 +33,7 @@ func isValidRegistrationStatus(fl validator.FieldLevel) bool {
 // The field definition of the BootNotification request payload sent by the Charge Point to the Central System.
 type BootNotificationRequest struct {
 	ChargeBoxSerialNumber   string `json:"chargeBoxSerialNumber,omitempty" validate:"max=25"`
-	ChargePointModel        string `json:"chargePointModel" validate:"required,max=20"`
+	ChargePointModel        string `json:"chargePointModel" validate:"max=20"`
 	ChargePointSerialNumber string `json:"chargePointSerialNumber,omitempty" validate:"max=25"`
 	ChargePointVendor       string `json:"chargePointVendor" validate:"required,max=20"`
 	FirmwareVersion         string `json:"firmwareVersion,omitempty" validate:"max=50"`
@@ -45,7 +46,7 @@ type BootNotificationRequest struct {
 // This field definition of the BootNotification confirmation payload, sent by the Central System to the Charge Point in response to a BootNotificationRequest.
 // In case the request was invalid, or couldn't be processed, an error will be sent instead.
 type BootNotificationConfirmation struct {
-	CurrentTime *types.DateTime    `json:"currentTime" validate:"required"`
+	CurrentTime *types.DateTime    `json:"currentTime" validate:"required" swaggertype:"string" format:"date-time"`
 	Interval    int                `json:"interval" validate:"gte=0"`
 	Status      RegistrationStatus `json:"status" validate:"required,registrationStatus16"`
 }

@@ -34,7 +34,7 @@ func isValidReservationStatus(fl validator.FieldLevel) bool {
 // The field definition of the ReserveNow request payload sent by the Central System to the Charge Point.
 type ReserveNowRequest struct {
 	ConnectorId   int             `json:"connectorId" validate:"gte=0"`
-	ExpiryDate    *types.DateTime `json:"expiryDate" validate:"required"`
+	ExpiryDate    *types.DateTime `json:"expiryDate" validate:"required" swaggertype:"string" format:"date-time"`
 	IdTag         string          `json:"idTag" validate:"required,max=20"`
 	ParentIdTag   string          `json:"parentIdTag,omitempty" validate:"max=20"`
 	ReservationId int             `json:"reservationId"`

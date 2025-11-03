@@ -1,9 +1,10 @@
 package core
 
 import (
+	"reflect"
+
 	"github.com/lorenzodonini/ocpp-go/ocpp1.6/types"
 	"gopkg.in/go-playground/validator.v9"
-	"reflect"
 )
 
 // -------------------- Change Configuration (CS -> CP) --------------------
@@ -32,8 +33,8 @@ func isValidConfigurationStatus(fl validator.FieldLevel) bool {
 
 // The field definition of the ChangeConfiguration request payload sent by the Central System to the Charge Point.
 type ChangeConfigurationRequest struct {
-	Key   string `json:"key" validate:"required,max=50"`
-	Value string `json:"value" validate:"required,max=500"`
+	Key   string  `json:"key" validate:"required,max=50"`
+	Value *string `json:"value" validate:"required,max=500"`
 }
 
 // This field definition of the ChangeConfiguration confirmation payload, sent by the Charge Point to the Central System in response to a ChangeConfigurationRequest.
@@ -76,7 +77,7 @@ func (c ChangeConfigurationConfirmation) GetFeatureName() string {
 
 // Creates a new ChangeConfigurationRequest, containing all required fields. There are no optional fields for this message.
 func NewChangeConfigurationRequest(key string, value string) *ChangeConfigurationRequest {
-	return &ChangeConfigurationRequest{Key: key, Value: value}
+	return &ChangeConfigurationRequest{Key: key, Value: &value}
 }
 
 // Creates a new ChangeConfigurationConfirmation, containing all required fields. There are no optional fields for this message.

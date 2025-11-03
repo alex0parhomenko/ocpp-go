@@ -12,9 +12,9 @@ const SecurityEventNotificationFeatureName = "SecurityEventNotification"
 
 // The field definition of the SecurityEventNotification request payload sent by the Charging Station to the CSMS.
 type SecurityEventNotificationRequest struct {
-	Type      string          `json:"type" validate:"required,max=50"`                 // Type of the security event. This value should be taken from the Security events list.
-	Timestamp *types.DateTime `json:"timestamp" validate:"required"`                   // Date and time at which the event occurred.
-	TechInfo  string          `json:"techInfo,omitempty" validate:"omitempty,max=255"` // Additional information about the occurred security event.
+	Type      string          `json:"type" validate:"required,max=50"`                                       // Type of the security event. This value should be taken from the Security events list.
+	Timestamp *types.DateTime `json:"timestamp" validate:"required" swaggertype:"string" format:"date-time"` // Date and time at which the event occurred.
+	TechInfo  string          `json:"techInfo,omitempty" validate:"omitempty,max=255"`                       // Additional information about the occurred security event.
 }
 
 // This field definition of the SecurityEventNotification response payload, sent by the CSMS to the Charging Station in response to a SecurityEventNotificationRequest.

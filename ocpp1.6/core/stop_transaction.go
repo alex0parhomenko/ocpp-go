@@ -42,7 +42,7 @@ func isValidReason(fl validator.FieldLevel) bool {
 type StopTransactionRequest struct {
 	IdTag           string             `json:"idTag,omitempty" validate:"max=20"`
 	MeterStop       int                `json:"meterStop"`
-	Timestamp       *types.DateTime    `json:"timestamp" validate:"required"`
+	Timestamp       *types.DateTime    `json:"timestamp" validate:"required" swaggertype:"string" format:"date-time"`
 	TransactionId   int                `json:"transactionId"`
 	Reason          Reason             `json:"reason,omitempty" validate:"omitempty,reason"`
 	TransactionData []types.MeterValue `json:"transactionData,omitempty" validate:"omitempty,dive"`

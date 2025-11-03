@@ -41,7 +41,7 @@ type GetCompositeScheduleRequest struct {
 type GetCompositeScheduleConfirmation struct {
 	Status           GetCompositeScheduleStatus `json:"status" validate:"required,compositeScheduleStatus"`
 	ConnectorId      *int                       `json:"connectorId,omitempty" validate:"omitempty,gte=0"`
-	ScheduleStart    *types.DateTime            `json:"scheduleStart,omitempty"`
+	ScheduleStart    *types.DateTime            `json:"scheduleStart,omitempty" swaggertype:"string" format:"date-time"`
 	ChargingSchedule *types.ChargingSchedule    `json:"chargingSchedule,omitempty" validate:"omitempty"`
 }
 

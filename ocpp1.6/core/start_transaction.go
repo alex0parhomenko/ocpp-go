@@ -15,7 +15,7 @@ type StartTransactionRequest struct {
 	IdTag         string          `json:"idTag" validate:"required,max=20"`
 	MeterStart    int             `json:"meterStart" validate:"gte=0"`
 	ReservationId *int            `json:"reservationId,omitempty" validate:"omitempty"`
-	Timestamp     *types.DateTime `json:"timestamp" validate:"required"`
+	Timestamp     *types.DateTime `json:"timestamp" validate:"required" swaggertype:"string" format:"date-time"`
 }
 
 // This field definition of the StartTransactionConfirmation payload sent by the Central System to the Charge Point in response to a StartTransactionRequest.
